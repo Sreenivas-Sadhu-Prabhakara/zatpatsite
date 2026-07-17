@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZatpatSite — Instant Website Generator</title>
+<meta name="description" content="One form. One beautiful website. Built for Indian small businesses.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23D6336C'/%3E%3Cpath d='M9 8h14l-9 10h9l-14 6 5-8H9z' fill='%23FFD54F'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="26" height="26"><rect width="32" height="32" rx="7" fill="#D6336C"/><path d="M9 8h14l-9 10h9l-14 6 5-8H9z" fill="#FFD54F"/></svg>
+    </span>
+    <span class="brand-text">Zatpat<em>Site</em></span>
+    <span class="brand-tag">One form. One beautiful website. <strong>₹2,999/yr</strong></span>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-ghost" id="btn-my-sites" type="button">My sites <span class="count-pill" id="sites-count">0</span></button>
+    <button class="btn btn-ghost" id="btn-new" type="button">+ New site</button>
+  </div>
+</header>
+
+<main class="workspace">
+
+  <!-- ============ FORM PANEL ============ -->
+  <section class="panel form-panel" aria-label="Website details">
+
+    <div class="fp-head">
+      <h1 id="form-title">Build your website</h1>
+      <p class="fp-sub">Fill what you know — ZatpatSite writes the rest.</p>
+    </div>
+
+    <form id="site-form" autocomplete="off">
+
+      <fieldset class="fgroup">
+        <legend>Business</legend>
+        <div class="frow">
+          <label for="f-name">Business name <span class="req">*</span></label>
+          <input id="f-name" type="text" placeholder="e.g. Noor Beauty Salon" required>
+        </div>
+        <div class="frow-2">
+          <div class="frow">
+            <label for="f-category">Category</label>
+            <select id="f-category"></select>
+          </div>
+          <div class="frow">
+            <label for="f-city">City</label>
+            <input id="f-city" type="text" placeholder="e.g. Jaipur">
+          </div>
+        </div>
+        <button class="btn btn-fetch" id="btn-fetch" type="button">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          Fetch from Google
+        </button>
+        <p class="hint">Autofills address, phone, hours, prices &amp; reviews from the business profile.</p>
+        <div class="frow">
+          <label for="f-address">Full address</label>
+          <input id="f-address" type="text" placeholder="Shop no, street, locality, city – PIN">
+        </div>
+      </fieldset>
+
+      <fieldset class="fgroup">
+        <legend>Contact</legend>
+        <div class="frow-2">
+          <div class="frow">
+            <label for="f-phone">Phone</label>
+            <input id="f-phone" type="tel" placeholder="98XXXXXXXX">
+          </div>
+          <div class="frow">
+            <label for="f-whatsapp">WhatsApp</label>
+            <input id="f-whatsapp" type="tel" placeholder="Same as phone if empty">
+          </div>
+        </div>
+        <div class="frow">
+          <label for="f-maps">Google Maps link <span class="opt">optional</span></label>
+          <input id="f-maps" type="url" placeholder="https://maps.google.com/…">
+        </div>
+      </fieldset>
+
+      <fieldset class="fgroup">
+        <legend>Opening hours</legend>
+        <div class="hours-grid" id="hours-grid"></div>
+        <button class="btn btn-mini" id="btn-copy-mon" type="button">Copy Monday to all days</button>
+      </fieldset>
+
+      <fieldset class="fgroup">
+        <legend>Services &amp; prices</legend>
+        <div id="svc-rows"></div>
+        <p class="hint empty-hint" id="svc-empty" hidden>No services yet — add your top items so customers see prices upfront.</p>
+        <button class="btn btn-mini" id="btn-add-svc" type="button">+ Add service</button>
+      </fieldset>
+
+      <fieldset class="fgroup">
+        <legend>About</legend>
+        <div class="frow">
+          <label for="f-about">Your story <span class="opt">optional</span></label>
+          <textarea id="f-about" rows="4" placeholder="Leave empty and ZatpatSite writes a warm intro for you."></textarea>
+        </div>
+      </fieldset>
+
+    </form>
+  </section>
+
+  <!-- ============ PREVIEW PANEL ============ -->
+  <section class="panel preview-panel" aria-label="Live preview">
+
+    <div class="preview-toolbar">
+      <div class="tool-group" id="theme-chips" role="radiogroup" aria-label="Theme"></div>
+      <div class="tool-group seg" id="lang-toggle" role="radiogroup" aria-label="Language">
+        <button type="button" class="seg-btn active" data-lang="en">English</button>
+        <button type="button" class="seg-btn" data-lang="hi">हिन्दी</button>
+      </div>
+      <div class="tool-group seg" id="device-toggle" role="radiogroup" aria-label="Device">
+        <button type="button" class="seg-btn active" data-device="desktop" title="Desktop preview">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+        </button>
+        <button type="button" class="seg-btn" data-device="mobile" title="Mobile preview">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        </button>
+      </div>
+      <div class="tool-group grow"></div>
+      <button class="btn btn-ghost-dark" id="btn-download" type="button">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        index.html
+      </button>
+      <button class="btn btn-primary" id="btn-save" type="button">Save site</button>
+    </div>
+
+    <div class="shopfront">
+      <div class="awning" aria-hidden="true"></div>
+      <div class="browser">
+        <div class="browser-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="urlpill" id="url-pill">zatpat.site/your-shop</span>
+        </div>
+        <div class="iframe-wrap" id="iframe-wrap">
+          <iframe id="preview" title="Website preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<!-- ============ MY SITES DRAWER ============ -->
+<div class="drawer-scrim" id="drawer-scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="My sites" hidden>
+  <div class="drawer-head">
+    <h2>My sites</h2>
+    <button class="btn btn-icon" id="btn-close-drawer" type="button" aria-label="Close">✕</button>
+  </div>
+  <p class="drawer-sub">Every site you save lives here. Hosting + domain: <strong>₹2,999/yr</strong>.</p>
+  <div class="drawer-list" id="drawer-list"></div>
+  <div class="drawer-empty" id="drawer-empty" hidden>
+    <p class="de-art" aria-hidden="true">🏪</p>
+    <p><strong>No sites yet.</strong></p>
+    <p>Fill the form and press “Save site” — your shop will appear here.</p>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/app.js"></script>
+</body>
+</html>
